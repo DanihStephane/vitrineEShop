@@ -5,11 +5,137 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>e-Shop BOSS</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-     <link href="style.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Inter:wght@300;400;600&display=swap');
+
+        :root {
+            --primary-color: #00ffff;
+            --secondary-color: #4d00ff;
+            --background-dark: #0a0a1a;
+            --text-color: #e6e6e6;
+        }
+
+        * {
+            box-sizing: border-box;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-color) var(--background-dark);
+        }
+
+        body, html {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-dark);
+            color: var(--text-color);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* Advanced Glitch Effect */
+        @keyframes glitch {
+            2%, 64% { transform: translate(2px, 0) skew(0deg); }
+            4%, 60% { transform: translate(-2px, 0) skew(0deg); }
+            62% { transform: translate(0, 0) skew(5deg); }
+        }
+
+        .glitch-text {
+            position: relative;
+            text-shadow: 0.05em 0 0 #00ffff, -0.03em -0.04em 0 #4d00ff,
+                        0.025em 0.04em 0 #ff00ff;
+            animation: glitch 5s infinite linear alternate-reverse;
+        }
+
+        .glitch-text:focus {
+            outline: none;
+            text-shadow: none;
+        }
+
+        /* Responsive Navigation */
+        .nav-mobile-toggle {
+            display: none;
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        @media (max-width: 768px) {
+            .nav-mobile-toggle {
+                display: block;
+            }
+
+            .main-nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.9);
+                backdrop-filter: blur(15px);
+                transition: 0.3s ease-in-out;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                z-index: 50;
+            }
+
+            .main-nav.active {
+                right: 0;
+            }
+        }
+
+        /* Product Card Enhanced */
+        .product-card {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .product-card:hover {
+            transform: rotateY(10deg) translateZ(50px);
+            box-shadow: 0 20px 50px rgba(0, 255, 255, 0.2);
+        }
+
+        /* Interactive Category Filters */
+        .category-filters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 12px 24px;
+            border-radius: 30px;
+            background: linear-gradient(135deg, rgba(0,255,255,0.2), rgba(77,0,255,0.2));
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--background-dark);
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Responsive Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--background-dark), #1a1a3a);
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        }
+
+        /* Footer Enhancements */
+        footer {
+            background: linear-gradient(135deg, var(--background-dark), #1a1a3a);
+            clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%);
+        }
+    </style>
 </head>
-<body class="bg-black text-cyan-500 page-enter">
-    <!-- Header Cyberpunk -->
-    <header class="fixed w-full top-0 z-50 glass-morphism">
+<body>
+    <!-- Header with Responsive Navigation -->
+    <header class="fixed w-full top-0 z-50 bg-opacity-50 backdrop-blur-lg">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-4">
                 <div class="flex items-center">
@@ -18,7 +144,13 @@
                         e-Shop BOSS
                     </h1>
                 </div>
-                <nav class="hidden md:flex space-x-6">
+                
+                <!-- Mobile Toggle -->
+                <div class="nav-mobile-toggle md:hidden">
+                    <i class="ri-menu-line text-2xl text-cyan-300"></i>
+                </div>
+
+                <nav class="main-nav hidden md:flex space-x-6">
                     <a href="#" class="text-cyan-300 hover:text-cyan-100 transition">Accueil</a>
                     <a href="#produits" class="text-cyan-300 hover:text-cyan-100 transition">Produits</a>
                     <a href="#" class="text-cyan-300 hover:text-cyan-100 transition">Contact</a>
@@ -62,55 +194,57 @@
         </div>
     </header>
 
-    <!-- Section Hero Cyberpunk -->
-    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+
+   <!-- Hero Section with Restored Explorer Button -->
+    <section class="hero-section relative h-screen flex items-center justify-center overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-r from-black via-blue-900 to-black opacity-75"></div>
-        <div class="relative z-10 text-center">
-            <h2 class="text-6xl font-bold text-cyan-300 glitch-text mb-6" data-text="Technologie du Futur">
+        <div class="relative z-10 text-center px-4">
+            <h2 class="text-4xl md:text-6xl font-bold text-cyan-300 glitch-text mb-6" data-text="Technologie du Futur">
                 Technologie du Futur
             </h2>
-            <p class="text-xl text-cyan-100 mb-8">Innovations qui redéfinissent votre réalité</p>
-            <a href="#produits" class="explorer-btn px-10 py-4 rounded-full text-lg font-bold">
+            <p class="text-lg md:text-xl text-cyan-100 mb-8 max-w-2xl mx-auto">
+                Innovations qui redéfinissent votre réalité technologique
+            </p>
+            <a href="#produits" class="explorer-btn inline-block px-8 md:px-10 py-3 md:py-4 rounded-full text-base md:text-lg font-bold">
                 Explorer
             </a>
         </div>
     </section>
-  <div class="category-filters" >
-    <button class="filter-btn">Basket</button>
-    <button class="filter-btn">Basket</button>
-    <button class="filter-btn">Basket</button>
-    <button class="filter-btn">Basket</button>
-    <button class="filter-btn">Basket</button>
-    <button class="filter-btn">Basket</button>
-    <button class="filter-btn">Basket</button>
-  </div>
 
-    <!-- Section Produits -->
+    <!-- Category Filters with Enhanced Interaction -->
+    <div class="category-filters container mx-auto px-4">
+        <button class="filter-btn">High-Tech</button>
+        <button class="filter-btn active">Électronique</button>
+        <button class="filter-btn">Gaming</button>
+        <button class="filter-btn">Accessoires</button>
+        <button class="filter-btn">Smart Home</button>
+    </div>
+
+    <!-- Products Section with Enhanced Search and Add Button -->
     <section id="produits" class="container mx-auto px-4 py-16">
-        <div class="mb-12 text-center">
+        <div class="mb-12 text-center product-search">
             <input 
                 type="text" 
-                placeholder="Rechercher des produits..." 
-                class="w-full max-w-xl px-4 py-3 glass-morphism text-cyan-100 placeholder-cyan-500 focus:outline-none"
+                placeholder="Rechercher des produits technologiques..." 
+                class="w-full px-4 py-3 text-cyan-100 placeholder-cyan-500"
             >
         </div>
 
-        <div class="grid md:grid-cols-3 gap-8">
-            <!-- Carte Produit Cyberpunk -->
-            <div class="product-card glass-morphism overflow-hidden">
+        <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            <div class="product-card bg-opacity-10 backdrop-blur-lg rounded-2xl overflow-hidden shadow-2xl">
                 <div class="relative">
-                    <img src="https://via.placeholder.com/400x300" alt="Produit" class="w-full h-64 object-cover">
+                    <img src="https://via.placeholder.com/400x300" alt="Produit" class="w-full h-64 object-cover transition-transform duration-300 hover:scale-110">
                     <div class="absolute top-4 left-4 bg-cyan-500 text-black px-3 py-1 rounded-full">-20%</div>
                 </div>
                 <div class="p-6">
                     <h3 class="text-xl font-bold mb-2 text-cyan-300">Nom du Produit</h3>
-                    <p class="text-cyan-100 mb-4">Description technologique avancée</p>
+                    <p class="text-cyan-100 mb-4 truncate">Description technologique avancée</p>
                     <div class="flex justify-between items-center">
                         <div>
                             <span class="text-cyan-300 font-bold text-lg">49.99 €</span>
                             <span class="text-cyan-600 line-through ml-2">59.99 €</span>
                         </div>
-                        <button class="bg-cyan-500 text-black px-4 py-2 rounded-full hover:bg-cyan-400 transition">
+                        <button class="product-add-btn">
                             Ajouter
                         </button>
                     </div>
@@ -120,32 +254,32 @@
         </div>
     </section>
 
-    <!-- Footer Cyberpunk -->
-    <footer class="bg-gradient-to-r from-black via-blue-900 to-black py-16">
-        <div class="container mx-auto px-4 grid md:grid-cols-4 gap-8 text-cyan-300">
+    <!-- Footer with Enhanced Layout -->
+    <footer class="py-16">
+        <div class="container mx-auto px-4 grid sm:grid-cols-2 md:grid-cols-4 gap-8 text-cyan-300">
             <div>
-                <h4 class="text-xl font-bold mb-4">À Propos</h4>
+                <h4 class="text-xl font-bold mb-4 glitch-text" data-text="À Propos">À Propos</h4>
                 <p class="text-cyan-100">Repoussant les limites de la technologie moderne</p>
             </div>
             <div>
                 <h4 class="text-xl font-bold mb-4">Liens</h4>
-                <ul>
-                    <li><a href="#" class="text-cyan-300 hover:text-cyan-100">Accueil</a></li>
-                    <li><a href="#" class="text-cyan-300 hover:text-cyan-100">Produits</a></li>
-                    <li><a href="#" class="text-cyan-300 hover:text-cyan-100">Contact</a></li>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-cyan-300 hover:text-cyan-100 transition">Accueil</a></li>
+                    <li><a href="#" class="text-cyan-300 hover:text-cyan-100 transition">Produits</a></li>
+                    <li><a href="#" class="text-cyan-300 hover:text-cyan-100 transition">Contact</a></li>
                 </ul>
             </div>
             <div>
                 <h4 class="text-xl font-bold mb-4">Contact</h4>
-                <p class="text-cyan-100">contact@eshopboss.tech</p>
+                <p class="text-cyan-100 mb-2">contact@eshopboss.tech</p>
                 <p class="text-cyan-100">+33 1 CYBER TECH</p>
             </div>
             <div>
                 <h4 class="text-xl font-bold mb-4">Réseaux</h4>
                 <div class="flex space-x-4">
-                    <a href="#" class="text-cyan-300 hover:text-cyan-100">FB</a>
-                    <a href="#" class="text-cyan-300 hover:text-cyan-100">IG</a>
-                    <a href="#" class="text-cyan-300 hover:text-cyan-100">TW</a>
+                    <a href="#" class="text-cyan-300 hover:text-cyan-100 transition"><i class="ri-facebook-fill text-2xl"></i></a>
+                    <a href="#" class="text-cyan-300 hover:text-cyan-100 transition"><i class="ri-instagram-line text-2xl"></i></a>
+                    <a href="#" class="text-cyan-300 hover:text-cyan-100 transition"><i class="ri-twitter-fill text-2xl"></i></a>
                 </div>
             </div>
         </div>
@@ -153,5 +287,9 @@
             <p class="text-cyan-600">© 2024 e-Shop BOSS. Futur Numérique</p>
         </div>
     </footer>
+
+    <script>
+       
+    </script>
 </body>
 </html>
