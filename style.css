@@ -1,0 +1,208 @@
+ /* Animations de chargement et transitions */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes glitch {
+            0% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+            5% { clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 90%); }
+            10% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+            15% { clip-path: polygon(0 15%, 100% 0, 100% 85%, 0 100%); }
+        }
+
+        body, html {
+            background-color: #0a0a1a;
+            color: #00ffff;
+            font-family: 'Orbitron', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Effet cyberpunk glass morphism */
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.125);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .glass-morphism:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 48px 0 rgba(31, 38, 135, 0.5);
+        }
+
+        /* Effet de chargement et transition */
+        .page-enter {
+            animation: fadeIn 1s ease-out;
+        }
+
+        .product-card {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.215, 0.610, 0.355, 1);
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                0deg, 
+                transparent, 
+                rgba(0, 255, 255, 0.2), 
+                transparent
+            );
+            transform: rotate(-45deg);
+            opacity: 0;
+            transition: all 0.5s;
+        }
+
+        .product-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Effet glitch pour le titre */
+        .glitch-text {
+            position: relative;
+            color: #00ffff;
+            animation: glitch 1s infinite;
+        }
+
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+
+        .glitch-text::before {
+            left: 2px;
+            text-shadow: -2px 0 red;
+            clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+        }
+
+        .glitch-text::after {
+            left: -2px;
+            text-shadow: -2px 0 blue;
+            clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+        }
+      .explorer-btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #00ffff, #4d00ff);
+            color: #0a0a1a;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        .explorer-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: all 0.5s ease;
+        }
+
+        .explorer-btn:hover::before {
+            left: 100%;
+        }
+
+        .explorer-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+        }
+
+ /* Styles précédents conservés, avec ajouts ci-dessous */
+        .user-profile {
+            position: relative;
+        }
+
+        .user-avatar {
+            position: relative;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00ffff, #4d00ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+        }
+
+        .user-avatar:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.8);
+        }
+
+        .user-avatar .status-indicator {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #00ff00;
+            border: 2px solid #0a0a1a;
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 250px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 50;
+        }
+
+        .user-profile:hover .user-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+
+.category-filters {
+  margin-top:30px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.filter-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+ background: linear-gradient(135deg, #00ffff, #4d00ff);
+            color: #0a0a1a;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.filter-btn.active {
+  background-color: #3b82f6;
+  color: white;
+}
+
