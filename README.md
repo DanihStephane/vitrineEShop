@@ -84,7 +84,7 @@ Les contributions sont les bienvenues ! Merci de suivre ces étapes :
 
 ## 📄 Licence
 
-Distribué sous licence MIT. Voir `LICENSE` pour plus d'informations.
+ `LICENSE` free: https://github.com/DanihStephane.
 
 ## 🎨 Design & Inspirations
 
